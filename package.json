@@ -1,0 +1,28 @@
+{
+  "name": "book-notes",
+  "version": "1.0.0",
+  "description": "web application containing boohs read by me. Application use API, SQL and Node.js",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/szymonMCS/bookNotes.git"
+  },
+  "author": "Szymon Maciejewski",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/szymonMCS/bookNotes/issues"
+  },
+  "homepage": "https://github.com/szymonMCS/bookNotes#readme",
+  "keywords": [],
+  "dependencies": {
+    "axios": "^1.7.9",
+    "body-parser": "^1.20.3",
+    "ejs": "^3.1.10",
+    "express": "^4.21.2",
+    "pg": "^8.13.1"
+  }
+}
