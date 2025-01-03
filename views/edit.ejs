@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>book notes | Szymon Maciejewski</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/styles/main.css">
+  <link rel="alternate" type="application/atom+xml" href="/en.atom">
+</head>
+<body>
+  <main>
+    <section id="bookInfo">
+      <div class="bookDetails">
+        <figure>
+          <img src="https://covers.openlibrary.org/b/isbn/<%=book.isbn %>-M.jpg" loading=lazy alt="Book cover">
+        </figure>
+        <div class="book-content">
+          <h2><%=book.title %></h2>
+          <small>
+            ISBN: <%=book.isbn %>
+            <br>
+            Date read: <%=book.date %>
+            <br>
+            How strongly I recommend it: 
+            <strong><%=book.recomendationratio %></strong>/10
+          </small>
+        </div>
+        <div id="operationPannel" class="gridRow">
+          <strong><a href="/" title="Szymon Maciejewski">Go back to the main page.</a></strong>
+          <div id="editOptions">
+            <button id="edit" onclick="handler()">Edit book details.</button>
+            <form action="/delete" method="post">
+              <button id="delete">Delete book.</button>
+            </form>
+          </div>
+        </div>
+        <div class="gridRow">
+          <p id="description"><%=book.description %></p>
+
+          <form class="edit" action="/edit" method="post" style="display: flex; align-items: flex-start; gap: 10px;">
+            <input type="hidden" name="updatedBookId" value="<%= book.id %>">
+            <textarea id="input1" name="updatedBookDescription" autocomplete="on" autofocus="true" hidden>
+              <%= book.description %>
+            </textarea>
+            <button id="done1" class="edit" type="submit" hidden>
+              <img class="icon" src="/images/tick-svgrepo-com.svg" alt="tick image" width="20" height="20">
+            </button>
+          </form>
+          
+
+        </div>
+        <div class="gridRow">
+          <h3>MY NOTES</h3>
+          <p id="notes"><%=book.notes %></p>
+
+          <form class="edit" action="/edit" method="post" style="display: flex; align-items: flex-start; gap: 10px;">
+            <input type="hidden" name="updatedBookNotes" value="<%= book.id %>">
+            <textarea id="input2" name="updatedBookNotes" autocomplete="on" autofocus="true" hidden>
+              <%= book.notes %>
+            </textarea>
+            <button id="done2" class="edit" type="submit" hidden>
+              <img class="icon" src="/images/tick-svgrepo-com.svg" alt="tick image" width="20" height="20">
+            </button>
+          </form>
+       
+        </div>
+      </div>
+    </section>
+
+    <script>
+      function handler() {
+        document.getElementById("description").setAttribute("hidden", true)
+        document.getElementById("notes").setAttribute("hidden", true)
+        document.getElementById("done1").removeAttribute("hidden")
+        document.getElementById("done2").removeAttribute("hidden")
+        document.getElementById("input1").removeAttribute("hidden")
+        document.getElementById("input2").removeAttribute("hidden")
+      }
+    </script>
+
+  </main>
+</body>
+</html>
