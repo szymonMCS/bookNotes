@@ -1,8 +1,6 @@
 import express from "express";
 import bodyParser from "body-parser";
-import axios from "axios";
 import pg from "pg";
-import { stringify } from "querystring";
 
 const app = express();
 const port = 3000;
@@ -61,6 +59,33 @@ app.post("/edit", async (req,res) => {
     console.error("Error executing query", err.stack);
   }
 });
+
+app.post("/editDetails", async (req, res) => {
+  const updatedId = req.body.updatedBookId;
+  const updatedDescription = req.body.updatedBookDescription.trim();
+  const updatedNotes = req.body.updatedBookNotes.trim();
+  try {
+    await db.query(
+      "UPDATE books SET description = $1, notes = $2  WHERE id = $3",
+      [updatedDescription,updatedNotes,updatedId]
+    );
+    res.redirect("/");
+  } catch (err) {
+    console.error("Error updating book details.", err.stack);
+  }
+});
+
+app.post("/delete", async (req, res) => {
+  const deletedItemId = req.body.deletedBookId;
+  try {
+    await db.query(
+      "DELETE FROM books WHERE id = $1",[deletedItemId]);
+      res.redirect("/");
+  } catch (err) {
+    console.log(err);
+  }
+});
+
 
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
