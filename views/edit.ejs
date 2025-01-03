@@ -29,15 +29,16 @@
           <strong><a href="/" title="Szymon Maciejewski">Go back to the main page.</a></strong>
           <div id="editOptions">
             <button id="edit" onclick="handler()">Edit book details.</button>
-            <form action="/delete" method="post">
-              <button id="delete">Delete book.</button>
+            <form action="/delete" method="post" onsubmit="return confirmDelete()">
+              <input type="hidden" name="deletedBookId" value="<%= book.id %>">
+              <button id="delete" type="submit">Delete book.</button>
             </form>
           </div>
         </div>
         <div class="gridRow">
           <p id="description"><%=book.description %></p>
 
-          <form class="edit" action="/edit" method="post" style="display: flex; align-items: flex-start; gap: 10px;">
+          <form class="edit" action="/editDetails" method="post" style="display: flex; align-items: flex-start; gap: 10px;">
             <input type="hidden" name="updatedBookId" value="<%= book.id %>">
             <textarea id="input1" name="updatedBookDescription" autocomplete="on" autofocus="true" hidden>
               <%= book.description %>
@@ -53,8 +54,8 @@
           <h3>MY NOTES</h3>
           <p id="notes"><%=book.notes %></p>
 
-          <form class="edit" action="/edit" method="post" style="display: flex; align-items: flex-start; gap: 10px;">
-            <input type="hidden" name="updatedBookNotes" value="<%= book.id %>">
+          <form class="edit" action="/editDetails" method="post" style="display: flex; align-items: flex-start; gap: 10px;">
+            <input type="hidden" name="updatedBookId" value="<%= book.id %>">
             <textarea id="input2" name="updatedBookNotes" autocomplete="on" autofocus="true" hidden>
               <%= book.notes %>
             </textarea>
@@ -75,6 +76,9 @@
         document.getElementById("done2").removeAttribute("hidden")
         document.getElementById("input1").removeAttribute("hidden")
         document.getElementById("input2").removeAttribute("hidden")
+      }
+      function confirmDelete() {
+        return confirm("Are you sure you want to delete this book? This action cannot be undone.");
       }
     </script>
 
