@@ -46,6 +46,22 @@ app.get("/", async (req, res) => {
   }
 });
 
+app.post("/edit", async (req,res) => {
+  const id = req.body.bookId;
+  try {
+    const dbRes = await db.query("SELECT * FROM books WHERE id = $1",[id]);
+    let book = dbRes.rows[0];
+    console.log(book);
+    let date = getFormattedDate(book.readdate);
+    book.date = date;
+    res.render("edit.ejs", {
+      book: book
+    })
+  } catch (err) {
+    console.error("Error executing query", err.stack);
+  }
+});
+
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });
