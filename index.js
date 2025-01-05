@@ -44,6 +44,32 @@ app.get("/", async (req, res) => {
   }
 });
 
+app.post("/sort", async (req, res) => {
+  try {
+    let sortType = req.body.sortType;
+    let dbRes;
+    if(sortType === "title"){
+      dbRes = await db.query("SELECT * FROM books ORDER BY title ASC");
+    } else if (sortType === "newest") {
+      dbRes = await db.query("SELECT * FROM books ORDER BY readdate DESC");
+    } else if (sortType === "best") {
+      dbRes = await db.query("SELECT * FROM books ORDER BY recomendationratio DESC");
+    }
+      let books = dbRes.rows;
+      books.forEach((book) => {
+        let date = getFormattedDate(book.readdate);
+        book.date = date;
+        console.log(date);
+      })
+      console.log(books);
+      res.render("index.ejs", {
+        books: books
+      });
+  } catch (err) {
+    console.error("Error executing query", err.stack);
+  }
+});
+
 app.post("/edit", async (req,res) => {
   const id = req.body.bookId;
   try {

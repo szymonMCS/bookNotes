@@ -25,6 +25,10 @@ button h2 {
   margin: 0;
 }
 
+button p {
+  margin: 0;
+}
+
 #delete, #edit {
   color: rgb(255, 255, 255);
 }
@@ -115,12 +119,12 @@ img {
 }
 
 .book p {
-  font-size: 1rem;
+  font-size: 20px;
   margin: 0;
 }
 
 .book strong, .book a {
-  font-size: 0.9rem;
+  font-size: 20px;
   text-decoration: none;
   color: #007acc;
 }
